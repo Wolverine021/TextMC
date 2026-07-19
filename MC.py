@@ -1,44 +1,48 @@
 class Predmet:
-    def __init__(self, naziv, kolicina = 1):
+    def __init__(self, naziv, kolicina=1):
         self.naziv = naziv
         self.kolicina = kolicina
+
 
 class Blok(Predmet):
     def __init__(self, naziv, kolicina=1, tvrdoca=1):
         super().__init__(naziv, kolicina)
-        self.tvrdoca = tvrdoca  
-    
+        self.tvrdoca = tvrdoca
+
     def __str__(self):
         return f"{self.naziv} x{self.kolicina} (tvrdoća: {self.tvrdoca})"
+
 
 class Alat(Predmet):
     def __init__(self, naziv, kolicina=1, izdrzljivost=100):
         super().__init__(naziv, kolicina)
-        self.izdrzljivost = izdrzljivost  
-    
+        self.izdrzljivost = izdrzljivost
+
     def __str__(self):
         return f"{self.naziv} x{self.kolicina} (izdrzljivost: {self.izdrzljivost})"
+
 
 class Hrana(Predmet):
     def __init__(self, naziv, kolicina=1, siti=4):
         super().__init__(naziv, kolicina)
-        self.siti = siti  
+        self.siti = siti
 
     def __str__(self):
         return f"{self.naziv} x{self.kolicina} (sitost: {self.siti})"
-    
+
+
 class Inventar:
-    def __init__(self, max_slotova = 36):
+    def __init__(self, max_slotova=36):
         self.max_slotova = max_slotova
         self.predmeti = []
-        
+
     def dodaj_predmet(self, predmet):
         if len(self.predmeti) < self.max_slotova:
             self.predmeti.append(predmet)
             print(f"{predmet.naziv} je dodan!")
         else:
             print("Inventar je pun!")
-            
+
     def ukloni_predmet(self, naziv):
         for predmet in self.predmeti:
             if predmet.naziv == naziv:
@@ -46,11 +50,11 @@ class Inventar:
                 print(f"{predmet.naziv} je uklonjen!")
                 return
         print("Taj predmet ne postoji...")
-        
+
     def prikazi_inventar(self):
         for predmet in self.predmeti:
             print(predmet)
-    
+
     def koristi_alat(self, naziv):
         for predmet in self.predmeti:
             if predmet.naziv == naziv and isinstance(predmet, Alat):
@@ -59,22 +63,71 @@ class Inventar:
                     self.predmeti.remove(predmet)
                     print(f"{predmet.naziv} je puknuo!")
                 else:
-                    print(f"{predmet.naziv} - preostala izdržljivost: {predmet.izdrzljivost}")
+                    print(
+                        f"{predmet.naziv} - preostala izdržljivost: {predmet.izdrzljivost}"
+                    )
                 return
         print("Alat ne postoji...")
-    
+
     def pojedi(self, naziv):
         for predmet in self.predmeti:
             if predmet.naziv == naziv and isinstance(predmet, Hrana):
                 predmet.kolicina -= 1
-                print(f"{predmet.naziv} je pojeden, sitost je napunjena za {predmet.siti}")
+                print(
+                    f"{predmet.naziv} je pojeden, sitost je napunjena za {predmet.siti}"
+                )
                 if predmet.kolicina <= 0:
                     self.predmeti.remove(predmet)
                     print(f"{predmet.naziv} su potrošeni!")
                 return
         print("Hrana ne postoji...")
 
-class Craft:
-    def __init__(self,):
-        recepti = {}
+
+class Crafting:
+    def __init__(self):
+        self.recepti = {
+            "Pijuk": {"drvo": 2, "kamen": 3},
+            "Sjekira": {"drvo": 3, "kamen": 2},
+        }
+
+    def craft(self, inventar, naziv_predmeta):
+        if naziv_predmeta not in self.recepti:
+            print("Recept ne postoji...")
+            return        
         
+        recept = self.recepti[naziv_predmeta]
+        
+        for materijal, broj in recept.items():
+            pronadeno = False
+            for predmet in inventar.predmeti:
+                if predmet.naziv == materijal:
+                    pronadeno = True
+                    if predmet.kolicina < broj:
+                        print(f"Nemas dovoljno materijala: {materijal}")
+                        return
+            if not pronadeno:
+                print(f"Nemas materijal: {materijal}")
+                return
+            
+        for materijal, broj in recept.items():
+            for predmet in inventar.predmeti:
+                if predmet.naziv == materijal:
+                    predmet.kolicina -= broj
+                    if predmet.kolicina == 0:
+                        inventar.ukloni_predmet(materijal)
+                    break
+        
+        novi_predmet = Alat(naziv_predmeta, kolicina=1, izdrzljivost=100)
+        inventar.dodaj_predmet(novi_predmet)  
+    
+        print(f"{naziv_predmeta} je uspjesno napravljen!")   
+
+#Test
+moj_inventar = Inventar()
+moj_inventar.dodaj_predmet(Blok("drvo", kolicina=5, tvrdoca=1))
+moj_inventar.dodaj_predmet(Blok("kamen", kolicina=5, tvrdoca=2))
+
+crafting = Crafting()
+crafting.craft(moj_inventar, "Pijuk")
+
+moj_inventar.prikazi_inventar()
