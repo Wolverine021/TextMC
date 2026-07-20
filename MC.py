@@ -112,6 +112,12 @@ class Crafting:
         if naziv_predmeta not in self.recepti:
             print("Recept ne postoji...")
             return        
+         
+        if len(inventar.predmeti) == inventar.max_slotova:
+            print("Inventar je pun, ne mozes craftat!")
+            return
+        
+        
         
         recept = self.recepti[naziv_predmeta]
         materijali = recept["materijali"]
