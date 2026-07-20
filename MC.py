@@ -86,9 +86,27 @@ class Inventar:
 class Crafting:
     def __init__(self):
         self.recepti = {
-            "Pijuk": {"drvo": 2, "kamen": 3},
-            "Sjekira": {"drvo": 3, "kamen": 2},
-        }
+    "Pijuk": {
+        "materijali": {"drvo": 2, "kamen": 3},
+        "tip": "alat",
+        "izdrzljivost": 100
+    },
+    "Sjekira": {
+        "materijali": {"drvo": 3, "kamen": 2},
+        "tip": "alat",
+        "izdrzljivost": 80
+    },
+    "Kruh": {
+        "materijali": {"psenica": 3},
+        "tip": "hrana",
+        "siti": 5
+    },
+    "Cigla": {
+        "materijali": {"glina": 4},
+        "tip": "blok",
+        "tvrdoca": 2
+    }
+}
 
     def craft(self, inventar, naziv_predmeta):
         if naziv_predmeta not in self.recepti:
@@ -96,8 +114,9 @@ class Crafting:
             return        
         
         recept = self.recepti[naziv_predmeta]
+        materijali = recept["materijali"]
         
-        for materijal, broj in recept.items():
+        for materijal, broj in materijali.items():
             pronadeno = False
             for predmet in inventar.predmeti:
                 if predmet.naziv == materijal:
@@ -109,7 +128,7 @@ class Crafting:
                 print(f"Nemas materijal: {materijal}")
                 return
             
-        for materijal, broj in recept.items():
+        for materijal, broj in materijali.items():
             for predmet in inventar.predmeti:
                 if predmet.naziv == materijal:
                     predmet.kolicina -= broj
@@ -117,7 +136,13 @@ class Crafting:
                         inventar.ukloni_predmet(materijal)
                     break
         
-        novi_predmet = Alat(naziv_predmeta, kolicina=1, izdrzljivost=100)
+        if recept["tip"] == "alat":
+            novi_predmet = Alat(naziv_predmeta, kolicina=1, izdrzljivost=recept["izdrzljivost"])
+        elif recept["tip"] == "hrana":
+            novi_predmet = Hrana(naziv_predmeta, kolicina=1, siti=recept["siti"])
+        elif recept["tip"] == "blok":
+            novi_predmet = Blok(naziv_predmeta, kolicina=1, tvrdoca=recept["tvrdoca"])
+        
         inventar.dodaj_predmet(novi_predmet)  
     
         print(f"{naziv_predmeta} je uspjesno napravljen!")   
@@ -126,8 +151,12 @@ class Crafting:
 moj_inventar = Inventar()
 moj_inventar.dodaj_predmet(Blok("drvo", kolicina=5, tvrdoca=1))
 moj_inventar.dodaj_predmet(Blok("kamen", kolicina=5, tvrdoca=2))
+moj_inventar.dodaj_predmet(Hrana("psenica", kolicina=5, siti=1))
+moj_inventar.dodaj_predmet(Blok("glina", kolicina=5, tvrdoca=1))
 
 crafting = Crafting()
 crafting.craft(moj_inventar, "Pijuk")
+crafting.craft(moj_inventar, "Kruh")
+crafting.craft(moj_inventar, "Cigla")
 
 moj_inventar.prikazi_inventar()
