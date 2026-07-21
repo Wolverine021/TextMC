@@ -1,3 +1,15 @@
+class RecepNePostoji(Exception):
+    pass
+
+class MaterijalNepostoji(Exception):
+    pass
+
+class NedovoljnoMaterijala(Exception):
+    pass
+
+class InventarPun(Exception):
+    pass
+
 class Predmet:
     def __init__(self, naziv, kolicina=1):
         self.naziv = naziv
@@ -41,7 +53,7 @@ class Inventar:
             self.predmeti.append(predmet)
             print(f"{predmet.naziv} je dodan!")
         else:
-            print("Inventar je pun!")
+            raise InventarPun("Inventar je pun, ne mozes craftat!")
 
     def ukloni_predmet(self, naziv):
         for predmet in self.predmeti:
@@ -110,14 +122,10 @@ class Crafting:
 
     def craft(self, inventar, naziv_predmeta):
         if naziv_predmeta not in self.recepti:
-            print("Recept ne postoji...")
-            return        
+            raise RecepNePostoji(f"Recept za '{naziv_predmeta}' ne postoji.")        
          
-        if len(inventar.predmeti) == inventar.max_slotova:
-            print("Inventar je pun, ne mozes craftat!")
-            return
-        
-        
+        if len(inventar.predmeti) >= inventar.max_slotova:
+            raise InventarPun("Inventar je pun, ne mozes craftat!")
         
         recept = self.recepti[naziv_predmeta]
         materijali = recept["materijali"]
@@ -128,11 +136,9 @@ class Crafting:
                 if predmet.naziv == materijal:
                     pronadeno = True
                     if predmet.kolicina < broj:
-                        print(f"Nemas dovoljno materijala: {materijal}")
-                        return
+                        raise NedovoljnoMaterijala(f"Nemas dovoljno materijala: {materijal}")
             if not pronadeno:
-                print(f"Nemas materijal: {materijal}")
-                return
+                raise MaterijalNepostoji(f"Materijal ne postoji: {materijal}")
             
         for materijal, broj in materijali.items():
             for predmet in inventar.predmeti:
@@ -161,8 +167,17 @@ moj_inventar.dodaj_predmet(Hrana("psenica", kolicina=5, siti=1))
 moj_inventar.dodaj_predmet(Blok("glina", kolicina=5, tvrdoca=1))
 
 crafting = Crafting()
-crafting.craft(moj_inventar, "Pijuk")
-crafting.craft(moj_inventar, "Kruh")
-crafting.craft(moj_inventar, "Cigla")
+try:
+    crafting.craft(moj_inventar, "Pijuk")
+except Exception as e:
+    print(f"Greška: {e}")
 
-moj_inventar.prikazi_inventar()
+try:
+    crafting.craft(moj_inventar, "Kruh")
+except Exception as e:
+    print(f"Greška: {e}")
+
+try:
+    crafting.craft(moj_inventar, "Nepostojeci")
+except Exception as e:
+    print(f"Greška: {e}")
