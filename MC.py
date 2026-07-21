@@ -10,6 +10,8 @@ class NedovoljnoMaterijala(Exception):
 class InventarPun(Exception):
     pass
 
+class HealingError(Exception):
+    pass
 class Predmet:
     def __init__(self, naziv, kolicina=1):
         self.naziv = naziv
@@ -42,6 +44,41 @@ class Hrana(Predmet):
     def __str__(self):
         return f"{self.naziv} x{self.kolicina} (sitost: {self.siti})"
 
+class Stats:
+    def __init__(self, inventar, max_health=20, max_hunger=20):
+        self.inventar = inventar
+        self.max_health = max_health
+        self.max_hunger = max_hunger
+        self.health = max_health
+        self.hunger = max_hunger
+        
+    def __str__(self):
+        return f"Health: {self.health}/{self.max_health}\nHunger: {self.hunger}/{self.max_hunger}"
+        
+    def dodaj_health(self, kolicina):
+        if self.health <= 0:
+            raise HealingError("Healing nemoguć, mrtav si!")     
+         
+        self.health += kolicina
+        if self.health >= self.max_health:
+            print("Health je na max")
+            self.health = self.max_health
+        else:
+            print(f"Health je povećan za {kolicina}")
+        
+    def oduzmi_health(self, kolicina):
+        self.health -= kolicina
+        if self.health <= 0:
+            self.health = 0
+            print("You died!")
+       
+    def dodaj_hunger(self, kolicina):
+        self.hunger += kolicina
+        if self.hunger >= self.max_hunger:
+            print("Hunger je na max")
+            self.hunger = self.max_hunger
+        else:
+            print(f"Hunger je povećan za {kolicina}")
 
 class Inventar:
     def __init__(self, max_slotova=36):
@@ -81,13 +118,12 @@ class Inventar:
                 return
         print("Alat ne postoji...")
 
-    def pojedi(self, naziv):
+    def pojedi(self, naziv, stats):
         for predmet in self.predmeti:
             if predmet.naziv == naziv and isinstance(predmet, Hrana):
                 predmet.kolicina -= 1
-                print(
-                    f"{predmet.naziv} je pojeden, sitost je napunjena za {predmet.siti}"
-                )
+                stats.dodaj_hunger(predmet.siti)
+                print(f"{predmet.naziv} je pojeden, sitost je napunjena za {predmet.siti}")
                 if predmet.kolicina <= 0:
                     self.predmeti.remove(predmet)
                     print(f"{predmet.naziv} su potrošeni!")
@@ -117,6 +153,26 @@ class Crafting:
         "materijali": {"glina": 4},
         "tip": "blok",
         "tvrdoca": 2
+    },
+    "Jabuka Pita": {
+        "materijali": {"jabuka": 3, "psenica": 1},
+        "tip": "hrana",
+        "siti": 6
+    },
+    "Pecena Svinjetina": {
+        "materijali": {"sirova_svinjetina": 1},
+        "tip": "hrana",
+        "siti": 8
+    },
+    "Zlatna Jabuka": {
+        "materijali": {"jabuka": 1, "zlato": 8},
+        "tip": "hrana",
+        "siti": 4
+    },
+    "Juha od Gljiva": {
+        "materijali": {"gljiva": 2, "posuda": 1},
+        "tip": "hrana",
+        "siti": 6
     }
 }
 
@@ -161,23 +217,10 @@ class Crafting:
 
 #Test
 moj_inventar = Inventar()
-moj_inventar.dodaj_predmet(Blok("drvo", kolicina=5, tvrdoca=1))
-moj_inventar.dodaj_predmet(Blok("kamen", kolicina=5, tvrdoca=2))
-moj_inventar.dodaj_predmet(Hrana("psenica", kolicina=5, siti=1))
-moj_inventar.dodaj_predmet(Blok("glina", kolicina=5, tvrdoca=1))
+moj_stats = Stats(moj_inventar)
+moj_stats.hunger = 10
 
-crafting = Crafting()
-try:
-    crafting.craft(moj_inventar, "Pijuk")
-except Exception as e:
-    print(f"Greška: {e}")
+moj_inventar.dodaj_predmet(Hrana("Kruh", kolicina = 1, siti = 5))
+moj_inventar.pojedi("Kruh", moj_stats)
 
-try:
-    crafting.craft(moj_inventar, "Kruh")
-except Exception as e:
-    print(f"Greška: {e}")
-
-try:
-    crafting.craft(moj_inventar, "Nepostojeci")
-except Exception as e:
-    print(f"Greška: {e}")
+print(moj_stats)
