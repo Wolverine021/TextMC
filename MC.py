@@ -1,3 +1,5 @@
+import json
+
 class RecepNePostoji(Exception):
     pass
 
@@ -133,48 +135,8 @@ class Inventar:
 
 class Crafting:
     def __init__(self):
-        self.recepti = {
-    "Pijuk": {
-        "materijali": {"drvo": 2, "kamen": 3},
-        "tip": "alat",
-        "izdrzljivost": 100
-    },
-    "Sjekira": {
-        "materijali": {"drvo": 3, "kamen": 2},
-        "tip": "alat",
-        "izdrzljivost": 80
-    },
-    "Kruh": {
-        "materijali": {"psenica": 3},
-        "tip": "hrana",
-        "siti": 5
-    },
-    "Cigla": {
-        "materijali": {"glina": 4},
-        "tip": "blok",
-        "tvrdoca": 2
-    },
-    "Jabuka Pita": {
-        "materijali": {"jabuka": 3, "psenica": 1},
-        "tip": "hrana",
-        "siti": 6
-    },
-    "Pecena Svinjetina": {
-        "materijali": {"sirova_svinjetina": 1},
-        "tip": "hrana",
-        "siti": 8
-    },
-    "Zlatna Jabuka": {
-        "materijali": {"jabuka": 1, "zlato": 8},
-        "tip": "hrana",
-        "siti": 4
-    },
-    "Juha od Gljiva": {
-        "materijali": {"gljiva": 2, "posuda": 1},
-        "tip": "hrana",
-        "siti": 6
-    }
-}
+        with open("recepti.json", "r") as f:
+            self.recepti = json.load(f)
 
     def craft(self, inventar, naziv_predmeta):
         if naziv_predmeta not in self.recepti:
