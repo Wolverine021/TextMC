@@ -1,0 +1,18 @@
+{
+    "health": 20,
+    "hunger": 18,
+    "inventar": [
+        {
+            "tip": "blok",
+            "naziv": "drvo",
+            "kolicina": 3,
+            "tvrdoca": 1
+        },
+        {
+            "tip": "alat",
+            "naziv": "Pijuk",
+            "kolicina": 1,
+            "izdrzljivost": 100
+        }
+    ]
+}
