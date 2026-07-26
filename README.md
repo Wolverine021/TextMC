@@ -6,22 +6,29 @@
   ██║  ███████╗██╔╝ ██╗   ██║   ██║ ╚═╝ ██║╚██████╗
   ╚═╝  ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝ ╚═════╝
 ```
+Tekstualna simulacija Minecraft inventara i craftinga.
 
-Tekstualna simulacija Minecraft inventara i craftinga
+## Znacajke
 
-## Značajke
+- Interaktivan CLI meni - craftanje, jelo, koristenje alata, prikaz statova, sve iz terminala
 - Sistem inventara s dodavanjem/uklanjanjem predmeta
-- Tri tipa predmeta koji nasljeđuju baznu klasu: Blok, Alat, Hrana
-- Crafting sistem koji provjerava materijale prije izrade predmeta
-- Health/Hunger sistem (Stats klasa)
-- Recepti se učitavaju iz vanjskog JSON fajla
-- Custom exceptions za rukovanje greškama (nedovoljno materijala, pun inventar, itd.)
+- Tri tipa predmeta koji nasljeduju baznu klasu `Predmet`: `Blok`, `Alat`, `Hrana`
+- Fleksibilan crafting sistem - recepti odreduju i materijale i tip/statove predmeta koji nastaje
+- Health/Hunger sistem (`Stats` klasa)
+- Recepti se ucitavaju iz vanjskog `recepti.json` fajla
+- Stanje igre (inventar + statovi) se sprema/ucitava iz `user.json` - napredak se ne gubi izmedu pokretanja
+- Custom exceptions za sve vrste gresaka (nedovoljno materijala, pun inventar, nepostojeci recept/predmet, itd.)
 
 ## Pokretanje
+
 ```bash
-python textmc.py
+python MC.py
 ```
 
+Pri pokretanju izabires ucitati postojecu igru (`user.json`) ili zapoceti novu.
+
 ## Struktura
-- `textmc.py` - glavni kod (klase i logika)
+
+- `MC.py` - glavni kod (klase i CLI meni)
 - `recepti.json` - definicije crafting recepata
+- `user.json` - spremljeno stanje igre (generira se/azurira kroz igru)
