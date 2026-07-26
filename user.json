@@ -1,18 +1,60 @@
 {
     "health": 20,
-    "hunger": 18,
+    "hunger": 19,
     "inventar": [
         {
             "tip": "blok",
             "naziv": "drvo",
-            "kolicina": 3,
+            "kolicina": 12,
             "tvrdoca": 1
+        },
+        {
+            "tip": "blok",
+            "naziv": "kamen",
+            "kolicina": 13,
+            "tvrdoca": 2
+        },
+        {
+            "tip": "blok",
+            "naziv": "glina",
+            "kolicina": 5,
+            "tvrdoca": 1
+        },
+        {
+            "tip": "blok",
+            "naziv": "zeljezo",
+            "kolicina": 10,
+            "tvrdoca": 4
+        },
+        {
+            "tip": "hrana",
+            "naziv": "psenica",
+            "kolicina": 5,
+            "siti": 1
+        },
+        {
+            "tip": "hrana",
+            "naziv": "jabuka",
+            "kolicina": 4,
+            "siti": 1
+        },
+        {
+            "tip": "hrana",
+            "naziv": "sirova_svinjetina",
+            "kolicina": 3,
+            "siti": 1
         },
         {
             "tip": "alat",
             "naziv": "Pijuk",
             "kolicina": 1,
-            "izdrzljivost": 100
+            "izdrzljivost": 99
+        },
+        {
+            "tip": "alat",
+            "naziv": "Sjekira",
+            "kolicina": 1,
+            "izdrzljivost": 80
         }
     ]
 }

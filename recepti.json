@@ -29,16 +29,6 @@
         "tip": "hrana",
         "siti": 8
     },
-    "Zlatna Jabuka": {
-        "materijali": {"jabuka": 1, "zlato": 8},
-        "tip": "hrana",
-        "siti": 4
-    },
-    "Juha od Gljiva": {
-        "materijali": {"gljiva": 2, "posuda": 1},
-        "tip": "hrana",
-        "siti": 6
-    },
     "Kameni Blok": {
         "materijali": {"kamen": 4},
         "tip": "blok",

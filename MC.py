@@ -14,6 +14,13 @@ class InventarPun(Exception):
 
 class HealingError(Exception):
     pass
+
+class HranaNePostoji(Exception):
+    pass
+
+class AlatNePostoji(Exception):
+    pass
+
 class Predmet:
     def __init__(self, naziv, kolicina=1):
         self.naziv = naziv
@@ -118,7 +125,7 @@ class Inventar:
                         f"{predmet.naziv} - preostala izdržljivost: {predmet.izdrzljivost}"
                     )
                 return
-        print("Alat ne postoji...")
+        raise AlatNePostoji(f"Alat {naziv} ne postoji...")
 
     def pojedi(self, naziv, stats):
         for predmet in self.predmeti:
@@ -130,8 +137,7 @@ class Inventar:
                     self.predmeti.remove(predmet)
                     print(f"{predmet.naziv} su potrošeni!")
                 return
-        print("Hrana ne postoji...")
-
+        raise HranaNePostoji(f"Hrana {naziv} ne postoji...")
 
 class Crafting:
     def __init__(self):
@@ -216,15 +222,70 @@ def ucitaj_stanje(stats, inventar, path="user.json"):
             predmet = Blok(stavka["naziv"], kolicina=stavka["kolicina"], tvrdoca=stavka["tvrdoca"])
         
         inventar.predmeti.append(predmet)
+    
+def pokreni_igru():
+    print("""
+██████╗███████╗██╗  ██╗████████╗███╗   ███╗ ██████╗
+╚═██╔═╝██╔════╝╚██╗██╔╝╚══██╔══╝████╗ ████║██╔════╝
+  ██║  █████╗   ╚███╔╝    ██║   ██╔████╔██║██║     
+  ██║  ██╔══╝   ██╔██╗    ██║   ██║╚██╔╝██║██║     
+  ██║  ███████╗██╔╝ ██╗   ██║   ██║ ╚═╝ ██║╚██████╗
+  ╚═╝  ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝ ╚═════╝
+""")
+    
+    inventar = Inventar()
+    stats = Stats(inventar)
+    crafting = Crafting()
+    
+    print("1. Ucitaj igru")
+    print("2. Zapocni novu")
+    izbor = input("Izbor: ")
+    if izbor == "1":
+        ucitaj_stanje(stats, inventar)
+    elif izbor == "2":
+        pass
+    else:
+        print("Nepoznat izbor...")
+    
+    while True:
+        print("\n1. Prikazi inventar")
+        print("2. Craftaj predmet")
+        print("3. Pojedi hranu")
+        print("4. Koristi alat")
+        print("5. Prikazi stats")
+        print("6. Spremi i izadji")
+        izbor = input("Izbor: ")
+        
+        if izbor == "1":
+            inventar.prikazi_inventar()
+        elif izbor == "2":
+            predmet = input("Izaberi predmet za napravit: ")   
+            try:   
+                crafting.craft(inventar, predmet) 
+            except Exception as e:
+                print(f"Greška: {e}")    
+        elif izbor == "3":
+            hrana = input("Izaberi sto pojesti: ")
+            try:
+                inventar.pojedi(hrana, stats)
+            except Exception as e:
+                print(f"Greška {e}")
+        elif izbor == "4":
+            alat = input("Izaberi alat za koristenje: ")
+            try:
+                inventar.koristi_alat(alat)
+            except Exception as e:
+                print(f"Greška: {e}")           
+        elif izbor == "5":
+            print(stats)
+        elif izbor == "6":
+            spremi_stanje(stats, inventar)
+            break
+        else:
+            print("Nepoznat izbor...")
 
-#Test
-moj_inventar = Inventar()
-
-moj_stats = Stats(moj_inventar)
-
-ucitaj_stanje(moj_stats, moj_inventar)
-
-print(f"{moj_stats}\n")
-moj_inventar.prikazi_inventar()
-
+#Start
+pokreni_igru()
+    
+    
 
