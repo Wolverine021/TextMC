@@ -20,7 +20,6 @@ Text-based Minecraft project written in Python.
 ## Project structure
 
 ```
-text
 main.py
 items.py
 inventory.py
