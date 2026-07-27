@@ -6,13 +6,39 @@ class Inventar:
         self.max_slotova = max_slotova
         self.predmeti = []
 
+    """
     def dodaj_predmet(self, predmet):
         if len(self.predmeti) < self.max_slotova:
             self.predmeti.append(predmet)
             print(f"{predmet.naziv} je dodan!")
         else:
             raise InventarPun("Inventar je pun, ne mozes craftat!")
-
+    """
+    def dodaj_predmet(self, predmet):
+        if len(self.predmeti) < self.max_slotova:
+            if isinstance(predmet (Hrana, Blok)):
+                for item in self.predmeti:
+                    if item.naziv == predmet.naziv and item.kolicina != 64:
+                        zbroj = item.kolicina + predmet.kolicina
+                        if zbroj > 64:
+                            ostatak = zbroj - 64
+                            item.kolicina = 64
+                            self.predmeti.append(predmet)
+                            predmet.kolicina = ostatak
+                            print(f"Predmet {predmet} je dodan!")
+                            return                           
+                        else:
+                            item.kolicina = zbroj
+                            print(f"Predmet {predmet} je dodan!")
+                            return     
+                self.predmeti.append(predmet)                 
+            else:
+                self.predmeti.append(predmet)
+            print(f"Predmet {predmet} je dodan!")
+            
+        else:
+            raise InventarPun("Inventar je pun, ne mozes craftat!") 
+            
     def ukloni_predmet(self, naziv):
         for predmet in self.predmeti:
             if predmet.naziv == naziv:
