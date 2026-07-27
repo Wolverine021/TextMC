@@ -5,13 +5,13 @@
         {
             "tip": "blok",
             "naziv": "drvo",
-            "kolicina": 12,
+            "kolicina": 9,
             "tvrdoca": 1
         },
         {
             "tip": "blok",
             "naziv": "kamen",
-            "kolicina": 13,
+            "kolicina": 11,
             "tvrdoca": 2
         },
         {
@@ -49,6 +49,12 @@
             "naziv": "Pijuk",
             "kolicina": 1,
             "izdrzljivost": 99
+        },
+        {
+            "tip": "alat",
+            "naziv": "Sjekira",
+            "kolicina": 1,
+            "izdrzljivost": 80
         },
         {
             "tip": "alat",

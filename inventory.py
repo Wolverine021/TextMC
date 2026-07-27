@@ -1,4 +1,4 @@
-from exceptions import RecepNePostoji, MaterijalNepostoji, NedovoljnoMaterijala, InventarPun, HealingError, HranaNePostoji, AlatNePostoji
+from exceptions import InventarPun, HranaNePostoji, AlatNePostoji
 from items import Predmet, Blok, Alat, Hrana
 
 class Inventar:

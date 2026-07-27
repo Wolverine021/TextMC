@@ -1,7 +1,7 @@
 import json
 from inventory import Inventar
 from crafting import Crafting
-import persistency
+from persistency import spremi_stanje, ucitaj_stanje
 from stats import Stats
 from items import Predmet, Blok, Alat, Hrana
 
@@ -23,7 +23,7 @@ def pokreni_igru():
     print("2. Zapocni novu")
     izbor = input("Izbor: ")
     if izbor == "1":
-        persistency.ucitaj_stanje(stats, inventar)
+        ucitaj_stanje(stats, inventar)
     elif izbor == "2":
         pass
     else:
@@ -61,13 +61,14 @@ def pokreni_igru():
         elif izbor == "5":
             print(stats)
         elif izbor == "6":
-            persistency.spremi_stanje(stats, inventar)
+            spremi_stanje(stats, inventar)
             break
         else:
             print("Nepoznat izbor...")
 
 #Start
-pokreni_igru()
+if __name__ == "__main__":
+    pokreni_igru()
     
     
 

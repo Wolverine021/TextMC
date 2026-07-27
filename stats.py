@@ -1,4 +1,4 @@
-from exceptions import RecepNePostoji, MaterijalNepostoji, NedovoljnoMaterijala, InventarPun, HealingError, HranaNePostoji, AlatNePostoji
+from exceptions import HealingError
 
 class Stats:
     def __init__(self, inventar, max_health=20, max_hunger=20):
