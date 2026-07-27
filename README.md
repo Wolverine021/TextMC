@@ -33,9 +33,11 @@ user.json
 ```
 ### Run
 
+```
 git clone https://github.com/Wolverine021/TextMC.git
 cd TextMC
 python3 main.py
+```
 
 ### Status
 
