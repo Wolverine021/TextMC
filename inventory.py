@@ -1,3 +1,6 @@
+from exceptions import RecepNePostoji, MaterijalNepostoji, NedovoljnoMaterijala, InventarPun, HealingError, HranaNePostoji, AlatNePostoji
+from items import Predmet, Blok, Alat, Hrana
+
 class Inventar:
     def __init__(self, max_slotova=36):
         self.max_slotova = max_slotova

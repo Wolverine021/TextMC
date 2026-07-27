@@ -23,7 +23,7 @@ def pokreni_igru():
     print("2. Zapocni novu")
     izbor = input("Izbor: ")
     if izbor == "1":
-        ucitaj_stanje(stats, inventar)
+        persistency.ucitaj_stanje(stats, inventar)
     elif izbor == "2":
         pass
     else:
@@ -61,7 +61,7 @@ def pokreni_igru():
         elif izbor == "5":
             print(stats)
         elif izbor == "6":
-            spremi_stanje(stats, inventar)
+            persistency.spremi_stanje(stats, inventar)
             break
         else:
             print("Nepoznat izbor...")
