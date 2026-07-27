@@ -4,17 +4,17 @@ from items import Predmet, Blok, Alat, Hrana
 
 class Crafting:
     def __init__(self):
-        with open("recepti.json", "r") as f:
-            self.recepti = json.load(f)
+        with open("recipes.json", "r") as f:
+            self.recipes = json.load(f)
 
     def craft(self, inventar, naziv_predmeta):
-        if naziv_predmeta not in self.recepti:
+        if naziv_predmeta not in self.recipes:
             raise RecepNePostoji(f"Recept za '{naziv_predmeta}' ne postoji.")        
          
         if len(inventar.predmeti) >= inventar.max_slotova:
             raise InventarPun("Inventar je pun, ne mozes craftat!")
         
-        recept = self.recepti[naziv_predmeta]
+        recept = self.recipes[naziv_predmeta]
         materijali = recept["materijali"]
         
         for materijal, broj in materijali.items():
