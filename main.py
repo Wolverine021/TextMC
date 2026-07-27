@@ -1,9 +1,7 @@
-import json
 from inventory import Inventar
 from crafting import Crafting
 from persistency import spremi_stanje, ucitaj_stanje
 from stats import Stats
-from items import Predmet, Blok, Alat, Hrana
 
 def pokreni_igru():
     print("""
