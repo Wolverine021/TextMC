@@ -19,7 +19,8 @@ Text-based Minecraft project written in Python.
 
 ## Project structure
 
-```text
+```
+text
 main.py
 items.py
 inventory.py
@@ -29,12 +30,13 @@ persistency.py
 exceptions.py
 recipes.json
 user.json
-Run
+```
+### Run
+
 git clone https://github.com/Wolverine021/TextMC.git
 cd TextMC
 python3 main.py
-About
 
-Status
+###Status
 
 Project is currently under development.
