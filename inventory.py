@@ -2,8 +2,9 @@ from exceptions import InventarPun, HranaNePostoji, AlatNePostoji
 from items import Predmet, Blok, Alat, Hrana
 
 class Inventar:
-    def __init__(self, max_slotova=36):
+    def __init__(self, max_slotova=36, max_stack = 64):
         self.max_slotova = max_slotova
+        self.max_stack = max_stack
         self.predmeti = []
 
     """
@@ -13,7 +14,7 @@ class Inventar:
             print(f"{predmet.naziv} je dodan!")
         else:
             raise InventarPun("Inventar je pun, ne mozes craftat!")
-    """
+    
     def dodaj_predmet(self, predmet):
         if len(self.predmeti) < self.max_slotova:
             if isinstance(predmet (Hrana, Blok)):
@@ -38,7 +39,38 @@ class Inventar:
             
         else:
             raise InventarPun("Inventar je pun, ne mozes craftat!") 
+    """
+    def dodaj_predmet(self, predmet):  
+        if isinstance(predmet, Alat):
+            if len(self.predmeti) < self.max_slotova:
+                self.predmeti.append(predmet)
+            else:
+                raise InventarPun("Inventar je pun!")    
+                        
+        elif isinstance(predmet, (Hrana, Blok)):
+            for item in self.predmeti:
+                if item.naziv == predmet.naziv and item.kolicina < self.max_stack:
+                    zbroj = predmet.kolicina + item.kolicina
+                    if zbroj <= self.max_stack:
+                        item.kolicina = zbroj
+                    else:
+                        novi_stack = zbroj - item.kolicina
+                        item.kolicina = self.max_stack
+                        
+                        if len(self.predmeti) > self.max_stack:
+                            raise InventarPun(f"Inventar je pun!, izbrisano x{zbroj} {predmet.naziv}")
+                        
+                        if novi_stack < self.max_stack:
+                            self.predmeti.append() 
+                            
+                        while novi_stack > self.max_stack:
+                            
+                            pass
+                else:
+                    pass
+                    
             
+              
     def ukloni_predmet(self, naziv):
         for predmet in self.predmeti:
             if predmet.naziv == naziv:
