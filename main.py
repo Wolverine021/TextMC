@@ -1,7 +1,9 @@
 from inventory import Inventar
 from crafting import Crafting
+from exceptions import InventarPun
 from persistency import spremi_stanje, ucitaj_stanje
 from stats import Stats
+from items import Blok, Hrana, Alat
 
 def pokreni_igru():
     print("""
@@ -33,7 +35,8 @@ def pokreni_igru():
         print("3. Pojedi hranu")
         print("4. Koristi alat")
         print("5. Prikazi stats")
-        print("6. Spremi i izadji")
+        print("6. Stack Test")
+        print("7. Spremi i izadji")
         izbor = input("Izbor: ")
         
         if izbor == "1":
@@ -59,6 +62,15 @@ def pokreni_igru():
         elif izbor == "5":
             print(stats)
         elif izbor == "6":
+            try:
+                inventar.dodaj_predmet(Blok("Drvo", 30, 1))
+                inventar.dodaj_predmet(Blok("Drvo", 50, 1))
+                inventar.dodaj_predmet(Blok("Kamen", 140, 2))
+                inventar.prikazi_inventar()
+            except InventarPun as e:
+                print(f"Greška: {e}")
+
+        elif izbor == "7":
             spremi_stanje(stats, inventar)
             break
         else:

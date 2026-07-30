@@ -1,5 +1,5 @@
 import json
-from items import Predmet, Blok, Alat, Hrana
+from items import Blok, Alat, Hrana
 
 def spremi_stanje(stats, inventar, path = "user.json"):
     inventar_lista = []

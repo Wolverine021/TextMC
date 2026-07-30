@@ -1,6 +1,6 @@
 import json
 from exceptions import RecepNePostoji, MaterijalNepostoji, NedovoljnoMaterijala, InventarPun, HealingError, HranaNePostoji, AlatNePostoji
-from items import Predmet, Blok, Alat, Hrana
+from items import Blok, Alat, Hrana
 
 class Crafting:
     def __init__(self):
