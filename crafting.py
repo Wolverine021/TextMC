@@ -1,5 +1,5 @@
 import json
-from exceptions import RecepNePostoji, MaterijalNepostoji, NedovoljnoMaterijala, InventarPun, HealingError, HranaNePostoji, AlatNePostoji
+from exceptions import RecepNePostoji, MaterijalNepostoji, NedovoljnoMaterijala, InventarPun
 from items import Blok, Alat, Hrana
 
 class Crafting:
