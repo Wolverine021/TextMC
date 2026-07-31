@@ -3,7 +3,7 @@ from crafting import Crafting
 from exceptions import InventarPun
 from persistency import spremi_stanje, ucitaj_stanje
 from stats import Stats
-from items import Blok, Hrana, Alat
+from items import Blok
 
 def pokreni_igru():
     print("""
