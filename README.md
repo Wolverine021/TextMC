@@ -6,38 +6,58 @@
   ██║  ███████╗██╔╝ ██╗   ██║   ██║ ╚═╝ ██║╚██████╗
   ╚═╝  ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝ ╚═════╝
 ```
+
 Text-based Minecraft project written in Python.
 
-## Features
+## **Features**
 
-- inventory system
-- crafting system
-- tools, blocks and food
-- health and hunger stats
-- saving and loading with JSON
-- custom exceptions
+- Inventory system with item stacking
+- Crafting system
+- Tools, blocks and food
+- Health and hunger stats
+- Tool durability
+- Saving and loading with JSON
+- Custom exceptions
+- Automated tests with pytest
 
-## Project structure
+## **Project structure**
 
+```text
+TextMC/
+├── tests/
+│   ├── test_inventory.py
+│   ├── test_crafting.py
+│   ├── test_persistency.py
+│   └── test_stats.py
+├── main.py
+├── items.py
+├── inventory.py
+├── crafting.py
+├── stats.py
+├── persistency.py
+├── exceptions.py
+├── recipes.json
+├── .gitignore
+└── README.md
 ```
-main.py
-items.py
-inventory.py
-crafting.py
-stats.py
-persistency.py
-exceptions.py
-recipes.json
-user.json
-```
-### Run
 
-```
+## **Run**
+
+```bash
 git clone https://github.com/Wolverine021/TextMC.git
 cd TextMC
 python3 main.py
 ```
 
-### Status
+## **Tests**
 
-Project is currently under development.
+```bash
+python3 -m pytest -v
+```
+
+## **Status**
+
+**Core functionality is complete.**
+
+Preparing the project for **v1.0.0**.
+
