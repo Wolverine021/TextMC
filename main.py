@@ -7,8 +7,8 @@ from stats import Stats
 def nova_igra(inventar, stats):
     inventar.predmeti.clear()
 
-    stats.health = 20
-    stats.hunger = 20
+    stats.health = stats.max_health
+    stats.hunger = stats.max_hunger
 
     inventar.dodaj_predmet(Blok("drvo", 10, 1))
     inventar.dodaj_predmet(Blok("kamen", 10, 2))
