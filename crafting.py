@@ -19,22 +19,39 @@ class Crafting:
         
         for materijal, broj in materijali.items():
             pronadeno = False
+            ukupno = 0
+            
             for predmet in inventar.predmeti:
                 if predmet.naziv == materijal:
                     pronadeno = True
-                    if predmet.kolicina < broj:
-                        raise NedovoljnoMaterijala(f"Nemas dovoljno materijala: {materijal}")
-            if not pronadeno:
-                raise MaterijalNepostoji(f"Materijal ne postoji: {materijal}")
+                    ukupno += predmet.kolicina
             
-        for materijal, broj in materijali.items():
-            for predmet in inventar.predmeti:
-                if predmet.naziv == materijal:
-                    predmet.kolicina -= broj
-                    if predmet.kolicina == 0:
-                        inventar.ukloni_predmet(materijal)
-                    break
+            if not pronadeno:
+                raise MaterijalNepostoji(f"Materijal ne postoji: {materijal}")           
+            
+            if ukupno < broj:
+                raise NedovoljnoMaterijala(f"Nemas dovoljno: {materijal}")
         
+         
+        for materijal, broj in materijali.items():
+            preostalo = broj
+            
+            while preostalo > 0:
+                stackovi = [
+                    predmet
+                    for predmet in inventar.predmeti
+                    if predmet.naziv == materijal
+                ]
+                min_stack = min(stackovi, key=lambda predmet: predmet.kolicina)
+                    
+                if preostalo >= min_stack.kolicina:
+                    preostalo -= min_stack.kolicina 
+                    inventar.predmeti.remove(min_stack)
+                
+                else:
+                    min_stack.kolicina -= preostalo
+                    preostalo = 0
+                            
         if recept["tip"] == "alat":
             novi_predmet = Alat(naziv_predmeta, kolicina=1, izdrzljivost=recept["izdrzljivost"])
         elif recept["tip"] == "hrana":
