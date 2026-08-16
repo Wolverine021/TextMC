@@ -28,7 +28,8 @@ TextMC/
 │   ├── test_inventory.py
 │   ├── test_crafting.py
 │   ├── test_persistency.py
-│   └── test_stats.py
+│   ├── test_stats.py
+│   └── test_loading.py
 ├── main.py
 ├── items.py
 ├── inventory.py
@@ -56,8 +57,6 @@ python3 -m pytest -v
 ```
 
 ## **Status**
-
-**Core functionality is complete.**
 
 Current version: **v1.0.0**.
 
