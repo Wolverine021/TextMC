@@ -59,5 +59,5 @@ python3 -m pytest -v
 
 **Core functionality is complete.**
 
-Preparing the project for **v1.0.0**.
+Current version: **v1.0.0**.
 
