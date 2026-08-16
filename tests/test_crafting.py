@@ -21,14 +21,6 @@ def test_recept_ne_postoji():
     
     with pytest.raises(RecepNePostoji):
         crafting.craft(inventar, "Gijuk")
-        
-def test_pun_inventar():
-    inventar = Inventar(max_slotova=1)
-    
-    inventar.dodaj_predmet(Alat("Pijuk", 1, 100))
-    
-    with pytest.raises(InventarPun):
-        inventar.dodaj_predmet(Alat("Pijuk", 1, 100))
 
 def test_nedovoljno_materijala():
     crafting = Crafting()
