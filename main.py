@@ -7,17 +7,21 @@ from stats import Stats
 def nova_igra(inventar, stats):
     inventar.predmeti.clear()
 
-    stats.health = stats.max_health
-    stats.hunger = stats.max_hunger
+    stats.health = stats.health_max
+    stats.hunger = stats.hunger_max
 
     inventar.dodaj_predmet(Blok("drvo", 10, 1))
     inventar.dodaj_predmet(Blok("kamen", 10, 2))
     inventar.dodaj_predmet(Blok("psenica", 5, 1))
     inventar.dodaj_predmet(Hrana("jabuka", 3, 1))
 
+    inventar.dodaj_predmet(Blok("glina", 5, 1))
+    inventar.dodaj_predmet(Blok("zeljezo", 5, 4))
+    inventar.dodaj_predmet(Hrana("sirova_svinjetina", 3, 1))
+
     print("Nova igra je zapoceta!")
     
-    
+       
 def pokreni_igru():
     print("""
 ██████╗███████╗██╗  ██╗████████╗███╗   ███╗ ██████╗

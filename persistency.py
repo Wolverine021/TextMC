@@ -23,8 +23,13 @@ def spremi_stanje(stats, inventar, path = "user.json"):
         json.dump(podaci, f, indent = 4)
         
 def ucitaj_stanje(stats, inventar, path="user.json"):
-    with open(path, "r") as f:
-        podaci = json.load(f)
+    try:
+        with open(path, "r") as f:
+            podaci = json.load(f)
+    
+    except FileNotFoundError:
+        print("Spremljena igra ne postoji.")
+        return
     
     stats.health = podaci["health"]
     stats.hunger = podaci["hunger"]
